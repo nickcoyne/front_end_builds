@@ -8,8 +8,7 @@ module FrontEndBuilds
     end
 
     def create
-      pubkey = FrontEndBuilds::Pubkey
-        .new( pubkey_create_params )
+      pubkey = FrontEndBuilds::Pubkey.new(pubkey_create_params)
 
       if pubkey.save
         respond_with_json(
@@ -37,16 +36,10 @@ module FrontEndBuilds
     private
 
     def pubkey_create_params
-      if supports_strong_params?
-        params.require(:pubkey).permit(
-          :name,
-          :pubkey
-        )
-      else
-        params[:pubkey].slice(:name, :pubkey)
-      end
+      params.require(:pubkey).permit(
+        :name,
+        :pubkey
+      )
     end
-    alias_method :pubkey_create_params_rails_5, :pubkey_create_params_rails_4
-
   end
 end
